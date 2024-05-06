@@ -16,3 +16,6 @@ player_scenario:
     The victim's editor, James Wilson, is nervous because he did have an argument with Robert Thompson earlier on the day when the murder happened, and fears that this will put suspicion on him, even though he is innocent.
     The police is expecting a call from Sherlock Holmes once he has established the truth.
   win_condition: "Sherlock Holmes calls the police, and tells them that Robert Thompson was murdered by his wife, who was stealing money from him."
+  lose_condition: "Sherlock Holmes calls the police and tells them that someone other than Emily Thompson murdered Robert Thompson, or Sherlock leaves the house, essentially giving up on the investigation."
+  win_text: "Congratulations Sherlock! You've figured out the mystery and saved the day!"
+  lose_text: "Oh dear, that wasn't right... Better luck next time!"

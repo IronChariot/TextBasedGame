@@ -1,7 +1,6 @@
-house:
-  name: "the house"
+- name: "the house"
   type: "thing"
-  description: "A house with a living room, kitchen, bedroom and study."
+  description: "The Thompson residence, an old house with a living room, kitchen, bedroom and study."
   physical_state: "old and made of bricks"
   contents:
     - name: "the living room"

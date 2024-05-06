@@ -1,4 +1,4 @@
-class thing:
+class Thing:
     def __init__(self, name, type="thing", description="", private_description="", physical_state="", contents={}, parent=None):
         self.name = name
         self.type = type
@@ -38,15 +38,11 @@ class thing:
             location_fragment += ", which is "
 
         if self.parent.type == "character":
-            location_fragment += "in the inventory of "
+            location_fragment += "on or carried by "
         else:
             location_fragment += "in "
 
         return location_fragment + self.parent.get_partial_location()
-        
-        
-                
-            
-
+     
     def __str__(self):
         return self.description

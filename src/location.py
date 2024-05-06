@@ -1,10 +1,7 @@
 # Based on the thing class
-from thing import thing
+from src.thing import Thing
 
-class location(thing):
-    def __init__(self, name, type="location", description="", physical_state="", contents=[], parent=None, exits=[]):
-        super().__init__(name, type, description, physical_state, contents, parent)
+class Location(Thing):
+    def __init__(self, name, type="location", description="", private_description="",physical_state="", contents={}, parent=None, exits={}):
+        super().__init__(name, type, description, private_description, physical_state, contents, parent)
         self.exits = exits
-
-    def __str__(self):
-        return self.description
