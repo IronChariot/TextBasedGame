@@ -1,0 +1,255 @@
+house:
+  name: "the house"
+  type: "thing"
+  description: "A house with a living room, kitchen, bedroom and study."
+  physical_state: "old and made of bricks"
+  contents:
+    - name: "the living room"
+      type: "location"
+      description: "A large living room with blue walls and carpetted floor."
+      physical_state: "warm but dusty"
+      exits:
+        - direction: "south"
+          destination: "the kitchen"
+        - direction: "east"
+          destination: "the bedroom"
+        - direction: "west"
+          destination: "the study"
+      contents:
+        - name: "the dark blue sofa"
+          type: "thing"
+          description: "A dark blue sofa."
+          physical_state: "worn and a little dusty"
+        - name: "the tall standing lamp"
+          type: "thing"
+          description: "A tall standing lamp."
+          physical_state: "switched on"
+        - name: "coffee table"
+          type: "thing"
+          description: "A low wooden coffee table."
+          physical_state: "in front of the sofa"
+          contents:
+            - name: "the blue teacup"
+              type: "thing"
+              description: "A blue teacup on a saucer."
+              physical_state: "on the coffee table, empty, in front of where Mr. Wilson sits"
+            - name: "the green teacup"
+              type: "thing"
+              description: "A green teacup on a saucer."
+              physical_state: "on the coffee table, mostly full, the tea is cold, in front of where Mrs. Thompson sits"
+        - name: "the dark stains on the carpet"
+          type: "thing"
+          description: "Dark smudged stains on the carpet."
+          private_description: "The stains were from bloody footsteps, someone tried to clean them up but with close inspection they could be identified as blood."
+          physical_state: "dark stains, smudged"
+        - name: "the front door"
+          type: "thing"
+          description: "The front door to the house."
+          private_description: "The door is locked so that only Holmes and Watson can open it, allowing them to question the suspects at their leisure."
+          physical_state: "locked"
+        - name: "Emily Thompson"
+          type: "character"
+          description: "A woman named Mrs. Emily Thompson, middle aged, with her long red hair pinned up tidily."
+          physical_state: "sitting on the sofa, dressed in a black dress, dark rings under her eyes"
+          psychological_state: "awake, weary, nervous"
+          backstory: |
+            Mrs. Emily Thompson had been stealing money from her husband to fund her gambling habit and was afraid of being caught.
+            When Mr. Thompson discovered her crime, she killed him with the letter opener during a confrontation in the study, when he threatened to divorce her and have her arrested. 
+            Mrs. Thompson decided to frame the maid, Ms. Sarah Baker, for the murder, by secretly placing an empty envelope labelled 'book advance payment' in Ms. Baker's purse.
+            After the police cleared away the body, they invited Sherlock Holmes to come and question everyone who had been around on the day of the murder.
+          current_context: |
+            Ms. Sarah Baker and Mr. James Wilson arrived at the house at 8 o'clock in the morning, as instructed by the police. No-one has spoken much today.
+            Mrs. Emily Thompson made some tea and served it in the living room for Mr. Wilson and herself while they wait, sitting on the sofa.
+            It is the 12th of May. Mr. Sherlock Holmes and Dr. John Watson arrived at the house at around 9 o'clock in the morning. 
+            Sherlock Holmes has gone west to the study, and Dr. Watson has gone south to the kitchen in order to talk to the maid.
+        - name: "James Wilson"
+          type: "character"
+          description: "A man named Mr. James Wilson, middle aged, with blond hair and a thin beard."
+          physical_state: "sitting on the sofa"
+          psychological_state: "awake, nervous"
+          backstory: |
+            Mr. James Wilson was the editor working with Mr. Robert Thompson.
+            He has a very bad reputation when it comes to how he treats women, which is mostly well earned.
+            He has a bad temper and can be impatient with his clients.
+            Mr. Wilson had a big argument with Mr. Thompson earlier on the day before the crime was committed. He is nervous that this will make people suspect him.
+          current_context: |
+            James Wilson arrived at the Thompson residence today, the 12th of May, 3 days after the murder, at 8 o'clock in the morning, as requested by the police.
+            Ms. Sarah Baker arrived at around this time as well, and while he attempted to flirt with her, she made an excuse and moved away to the kitchen.
+            Sherlock Holmes and Dr. John Watson arrived at around 9 o'clock, whereupon Holmes went to investigate the study and Watson went to the kitchen.
+            Though not much conversation has happened, Mrs. Thompson has offered James some tea, and they now sit in the living room, waiting for Sherlock Holmes to conduct the investigation.
+
+    - name: "the kitchen"
+      type: "location"
+      description: "A large kitchen with white walls and laminate floor."
+      physical_state: "cold and clean"
+      exits:
+        - direction: "north"
+          destination: "Living Room"
+      contents:
+        - name: "the white sink"
+          type: "thing"
+          description: "A white sink."
+          physical_state: "clean"
+        - name: "the wooden table"
+          type: "thing"
+          description: "A white table."
+          physical_state: "scratched but clean"
+        - name: "the iron stove"
+          type: "thing"
+          description: "An iron stove."
+          physical_state: "old but clean"
+        - name: "the body outline"
+          type: "thing"
+          description: "A body outline drawn in white paint on the floor."
+          physical_state: "freshly marked, dry"
+        - name: "John Watson"
+          type: "character"
+          description: "A doctor named John Watson, middle aged yet in good health, with brown hair and a moustache."
+          physical_state: "standing"
+          psychological_state: "awake, calm"
+          backstory: "John Watson is Sherlock Holmes' friend and assistant. They have resolved many mysteries together."
+          current_context: |
+            Watson and Holmes entered the Thompson house at around 9 o'clock in the morning. 
+            Sherlock Holmes went to inspect the scene of the crime (the study), while Watson decided to question the maid in the kitchen, as she witnessed the state of the body first-hand.
+          contents:
+            - name: "Watson's Hat"
+              type: "thing"
+              description: "A black hat."
+              physical_state: "being worn"
+            - name: "Watson's Suit"
+              type: "thing"
+              description: "A blue suit."
+              physical_state: "being worn"
+              contents:
+                - name: "Watson's Pocket Watch"
+                  type: "thing"
+                  description: "A golden pocket watch on a chain."
+                  physical_state: "in the inside pocket, wound up"
+        - name: "Sarah Baker"
+          type: "character"
+          description: "A woman named Sarah Baker, in her early thirties and attractive, with brown hair tied in a ponytail, wearing a maid outfit with apron."
+          physical_state: "standing, idly wiping the worktops with a damp cloth"
+          psychological_state: "awake, calm"
+          backstory: |
+            Sarah Baker has been the maid at the Thompson house for many years. 
+            She has not gotten a raise in years, which makes her a little bitter. 
+            She discovered Mr. Thompson's body on the evening of the 9th of May, and immediately called the police.
+          current_context: |
+            Sarah Baker arrived at around 8 o'clock in the morning today, the 12th of May, 3 days after the murder.
+            James Wilson arrived ar around the same time and tried to talk to her in the living room, but he made her uncomfortable, as she knows his bad reputation with women.
+            Sarah excused herself to the kitchen, saying that she should tidy up there.
+            Mrs. Emily Thompson later came to the kitchen to make some tea for herself and Mr. Wilson. Emily complimented Sarah on her nice handbag that she had put down, examining it briefly.
+            Holmes and Watson arrived at around 9 o'clock. Dr. Watson came to the kitchen, and started to talk to Sarah about the crime scene she had found on the 9th.
+          contents:
+            - name: "Sarah's handbag"
+              type: "thing"
+              description: "A minimalist black handbag."
+              physical_state: "new"
+              contents:
+                - name: "Sarah's purse"
+                  type: "thing"
+                  description: "A black purse."
+                  physical_state: "made of cheap leather"
+                  contents:
+                    - name: "a few coins"
+                      type: "thing"
+                      description: "A few coins, amounting to about 4 shillings."
+                      physical_state: "normal"
+                - name: "the envelope"
+                  type: "thing"
+                  description: "An envelope with 'book advance payment' written on it."
+                  private_description: "Placed into Sarah Baker's handbag without her knowledge by Emily Thompson while she examined it today."
+                  physical_state: "folded, opened, empty"
+
+    - name: "the study"
+      type: "location"
+      description: "A small study with magnolia walls and carpetted floor."
+      physical_state: "tidy and clean"
+      exits:
+        - direction: "east"
+          destination: "the living room"
+      contents:
+        - name: "the desk"
+          type: "thing"
+          description: "A mahogany desk with a green felting top."
+          physical_state: "untidy, bloodstained"
+          contents:
+            - name: "the letter opener"
+              type: "thing"
+              description: "A silver letter opener."
+              physical_state: "on the desk, bloodstained"
+            - name: "the threatening letter"
+              type: "thing"
+              description: "A threatening letter, signed J.W."
+              private_description: "The letter is not addressed to anyone in particular, but threatens the kill the recipient. It is in fact a fictional letter that the author Robert Thompson wrote as part of his writing process, and is unrelated to his murder."
+              physical_state: "inside a drawer, crumpled"
+        - name: "the chair"
+          type: "thing"
+          description: "A black leather chair."
+          physical_state: "bloodstained, placed in such a way that someone working at the desk can face the window to the west"
+        - name: "the pages of a manuscript"
+          type: "thing"
+          description: "Pages of a manuscript with the title 'The Longest Trip' strewn across the desk and floor."
+          private_description: "The manuscript is for a thriller that Robert Thompson was writing. The protagonist is named Bob Timmins, while the villain is named Julia Wool."
+          physical_state: "bloodstained, strewn across the floor and desk"
+        - name: "Sherlock Holmes"
+          type: "character"
+          description: "A man named Sherlock Holmes, middle aged and smartly dressed, with black hair, clean shaven."
+          physical_state: "standing"
+          psychological_state: "awake, calm"
+          backstory: "Sherlock Holmes is a famous detective."
+          current_context: "Sherlock Holmes is looking for clues in the study, the scene of the crime."
+          contents:
+            - name: "Sherlock's hat"
+              type: "thing"
+              description: "A green deerstalker hat."
+              physical_state: "being worn"
+            - name: "Sherlock's suit"
+              type: "thing"
+              description: "A green suit."
+              physical_state: "being worn"
+              contents:
+                - name: "Sherlock's pipe"
+                  type: "thing"
+                  description: "A wooden pipe, with a black handle."
+                  physical_state: "not lit, empty"
+                - name: "pack of smoking tabacco"
+                  type: "thing"
+                  description: "A pack of smoking tabacco."
+                  physical_state: "half full"
+                - name: "the magnifying glass"
+                  type: "thing"
+                  description: "A magnifying glass."
+                  physical_state: "cleaned"
+
+    - name: "the bedroom"
+      type: "location"
+      description: "A small bedroom with cream walls and carpetted floor, and a small ensuite with a shower and toilet."
+      physical_state: "warm and clean"
+      exits:
+        - direction: "west"
+          destination: "the living room"
+      contents:
+        - name: "the bed"
+          type: "thing"
+          description: "A white bed with a blue blanket."
+          physical_state: "sheets recently changed, clean"
+        - name: "the bedside table"
+          type: "thing"
+          description: "A white bedside table with a lamp."
+          physical_state: "worn down, clean"
+        - name: "the stains on the carpet"
+          type: "thing"
+          description: "Light smudged stains on the carpet."
+          private_description: "The stains were from bloody footsteps, but they have been cleaned up now and are not really identifiable as blood."
+          physical_state: "very light stains, smudged"
+        - name: "the wastepaper basket"
+          type: "thing"
+          description: "A wastepaper basket."
+          physical_state: "tucked in a corner of the room"
+          contents:
+            - name: "torn up betting slip"
+              type: "thing"
+              description: "A torn up betting slip."
+              private_description: "The slip has a large bet on it for a horse named 'Lucky Luke'. It is torn up into 5 pieces, and isn't too difficult to put back together with a little effort."
+              physical_state: "torn up into a few pieces"

@@ -1,0 +1,18 @@
+player_scenario:
+  name: "Death of the Author"
+  introduction: |
+    You are Sherlock Holmes, who, alongside your faithful friend and assistant Dr. John Watson, have been called to investigate the murder of Mr. Robert Thompson, a successful author, in his study. 
+    You have decided to investigate the study for clues, while Watson has elected to talk to the maid, Ms. Sarah Baker, in the kitchen. 
+    The wife of the deceased, Mrs. Emily Thompson, alongside Mr. Thompson's editor, Mr. James Wilson, are sitting in the living room, having been asked by the police to wait there for you to question them. 
+    The date is the 12th of May, 3 days after the murder.
+  player_character: "Sherlock Holmes"
+  initial_location: "the study"
+  hidden_context: |
+    The maid, Ms. Sarah Baker, discovered the body of Mr. Robert Thompson in the study in the evening of the 9th of May. The people known to have been in the house that day were Ms. Sarah Baker, Mrs. Emily Thompson, and Mr. Thompson's editor, Mr. James Wilson.
+    Mrs. Emily Thompson had been stealing money from her husband to fund her gambling habit and was afraid of being caught.
+    When Mr. Thompson discovered her crime, she killed him with the letter opener during a confrontation in the study, when he threatened to divorce her and have her arrested. 
+    Mrs. Thompson decided to frame the maid, Ms. Sarah Baker, for the murder, by secretly placing an empty envelope labelled 'book advance payment' in Ms. Baker's purse. 
+    Ms. Sarah Baker was not the biggest fan of Mr. Thompson as he was stingy and didn't pay her as much as he could have. Sarah believes that James Wilson is the culprit, since she heard their argument earlier in the day, and knows that James has a bad reputation when it comes to how he treats women, which biases Sarah against him.
+    The victim's editor, James Wilson, is nervous because he did have an argument with Robert Thompson earlier on the day when the murder happened, and fears that this will put suspicion on him, even though he is innocent.
+    The police is expecting a call from Sherlock Holmes once he has established the truth.
+  win_condition: "Sherlock Holmes calls the police, and tells them that Robert Thompson was murdered by his wife, who was stealing money from him."

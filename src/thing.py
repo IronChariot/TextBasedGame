@@ -1,8 +1,9 @@
 class thing:
-    def __init__(self, name, type="thing", description="", physical_state="", contents=[], parent=None):
+    def __init__(self, name, type="thing", description="", private_description="", physical_state="", contents={}, parent=None):
         self.name = name
         self.type = type
         self.description = description
+        self.private_description = private_description
         self.physical_state = physical_state
         self.contents = contents
         self.parent = parent
