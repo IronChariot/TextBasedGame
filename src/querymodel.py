@@ -2,9 +2,14 @@
 
 import requests
 import json
+from consoleui import ConsoleUI
 
 # Function to create a chat completion using ollama
-def chat_completion(model, user_message, messages, temperature=0.0, max_tokens=1024, system_prompt=""):
+def chat_completion(user_message, messages=[], model="lexi-llama3-q5", temperature=0.0, max_tokens=1024, system_prompt="", console: ConsoleUI=None):
+    if console is not None:
+        console_num_for_wai = 2
+        console.write_llm_query_to_console(console_num_for_wai, system_prompt, user_message)
+
     messages.append({"role": "user", "content": user_message})
 
     url = "http://localhost:11434/api/generate"
@@ -34,11 +39,14 @@ def chat_completion(model, user_message, messages, temperature=0.0, max_tokens=1
     else:
         text_response = "Error: " + str(response.status_code)
 
+    if console is not None:
+        console.write_to_console(console_num_for_wai, "\nResponse:\n" + text_response)
+
     return text_response, messages
 
 # import anthropic
 
-# def chat_completion(model, user_message, messages, temperature=0.0, max_tokens=1024, system_prompt=""):
+# def chat_completion(user_message, messages=[], model='claude-3-opus-20240229', temperature=0.0, max_tokens=1024, system_prompt=""):
 #     messages.append({"role": "user", "content": user_message})
 
 #     chat_completion = anthropic.Anthropic().messages.create(
@@ -58,7 +66,7 @@ def chat_completion(model, user_message, messages, temperature=0.0, max_tokens=1
 # client = Groq()
 
 # # Function to create a chat completion using Groq
-# def chat_completion(model, user_message, messages, temperature=0.0, max_tokens=1024, system_prompt=""):
+# def chat_completion(user_message, messages=[], model='llama3-70b-8192', temperature=0.0, max_tokens=1024, system_prompt=""):
 #     if system_prompt != "" and len(messages) == 0:
 #         messages.append({"role": "system", "content": system_prompt})
 #     messages.append({"role": "user", "content": user_message})
@@ -77,7 +85,7 @@ def chat_completion(model, user_message, messages, temperature=0.0, max_tokens=1
 # client = OpenAI()
 
 # # Function to create a chat completion using OpenAI's API
-# def chat_completion(model, user_message, messages, temperature=0.0, max_tokens=1024, system_prompt=""):
+# def chat_completion(user_message, messages=[], model='gpt-4-turbo-2024-04-09, temperature=0.0, max_tokens=1024, system_prompt=""):
 #     if system_prompt != "" and len(messages) == 0:
 #         messages.append({"role": "system", "content": system_prompt})
 #     messages.append({"role": "user", "content": user_message})

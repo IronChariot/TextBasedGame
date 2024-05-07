@@ -1,5 +1,6 @@
 import yaml
 import os
+from dicttoxml import dicttoxml
 from src.thing import Thing
 from src.location import Location
 from src.character import Character
@@ -95,3 +96,34 @@ class World:
     
     def get_character_names(self):
         return list(self.characters.keys())
+    
+    def update_thing_private_description(self, thing_name, thing_description):
+        # First, find the thing in the world - it'll either be in the items, locations, or characters dictionaries
+        thing = None
+        if thing_name in self.items:
+            thing = self.items[thing_name]
+        elif thing_name in self.locations:
+            thing = self.locations[thing_name]
+        elif thing_name in self.characters:
+            thing = self.characters[thing_name]
+
+        # Update the private_description of the thing
+        thing.private_description += thing_description
+
+    def create_thing(self, location_name, thing_name, thing_description):
+        # First, find the location in the world - it'll either be in the items, locations, or characters dictionaries
+        location = None
+        if location_name in self.items:
+            location = self.items[location_name]
+        elif location_name in self.locations:
+            location = self.locations[location_name]
+        elif location_name in self.characters:
+            location = self.characters[location_name]
+
+        # Create the thing in its parent's contents, and also store it in the items dictionary
+        location.contents[thing_name] = Thing(thing_name, description=thing_description, parent=location)
+        self.items[thing_name] = location.contents[thing_name]
+    
+    def __str__(self):
+        xml_string = dicttoxml(self.world_state, custom_root='world', xml_declaration=False, attr_type=False)
+        return xml_string

@@ -1,6 +1,7 @@
 import tkinter as tk
 import datetime
 import os
+from src.aiconsole import AIConsole
 
 class ConsoleUI:
     def __init__(self):
@@ -23,6 +24,11 @@ class ConsoleUI:
             frame.pack(side=tk.LEFT, padx=5, pady=5)
             self.consoles.append(console)
             self.inputs.append(input_entry)
+
+        self.aiconsole = None
+
+    def set_ai_console(self, console: AIConsole):
+        self.aiconsole = console
 
     def create_console_section(self, console_num):
         frame = tk.Frame(self.root)
@@ -64,7 +70,14 @@ class ConsoleUI:
         current_input = self.inputs[console_num-1]
         text = current_input.get()
         current_input.delete(0, tk.END)
-        self.write_to_console(console_num, "User input: " + text)
+        self.write_to_console(console_num, "\nUser input:\n" + text)
+        if self.aiconsole is not None and console_num == 1:
+            self.aiconsole.process_player_input(text)
+
+    def write_llm_query_to_console(self, console_num, system_prompt, prompt):
+        self.clear_console(console_num)
+        self.write_to_console(console_num, "\nSystem Prompt:\n" + system_prompt)
+        self.write_to_console(console_num, "\nPrompt:\n" + prompt)
 
     def run(self):
         self.root.mainloop()

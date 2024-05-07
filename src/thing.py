@@ -44,5 +44,11 @@ class Thing:
 
         return location_fragment + self.parent.get_partial_location()
      
+    def get_code_location(self):
+        location_str = f"['{self.name}']"
+        if self.parent is not None:
+            location_str = self.parent.get_code_location() + location_str
+        return location_str
+
     def __str__(self):
         return self.description

@@ -7,8 +7,9 @@ player_scenario:
     The date is the 12th of May, 3 days after the murder.
   player_character: "Sherlock Holmes"
   initial_location: "the study"
-  hidden_context: |
-    The maid, Ms. Sarah Baker, discovered the body of Mr. Robert Thompson in the study in the evening of the 9th of May. The people known to have been in the house that day were Ms. Sarah Baker, Mrs. Emily Thompson, and Mr. Thompson's editor, Mr. James Wilson.
+  setting: |
+    The story takes place in Victorian England. It is based on the stories of Sherlock Holmes.
+    A murder took place at the Thompson residence. The maid, Ms. Sarah Baker, discovered the body of Mr. Robert Thompson in the study in the evening of the 9th of May. The people known to have been in the house that day were Ms. Sarah Baker, Mrs. Emily Thompson, and Mr. Thompson's editor, Mr. James Wilson.
     Mrs. Emily Thompson had been stealing money from her husband to fund her gambling habit and was afraid of being caught.
     When Mr. Thompson discovered her crime, she killed him with the letter opener during a confrontation in the study, when he threatened to divorce her and have her arrested. 
     Mrs. Thompson decided to frame the maid, Ms. Sarah Baker, for the murder, by secretly placing an empty envelope labelled 'book advance payment' in Ms. Baker's purse. 
