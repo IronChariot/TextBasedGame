@@ -2,17 +2,15 @@
 
 import requests
 import json
-from consoleui import ConsoleUI
 
 # Function to create a chat completion using ollama
-def chat_completion(user_message, messages=[], model="lexi-llama3-q5", temperature=0.0, max_tokens=1024, system_prompt="", console: ConsoleUI=None):
-    if console is not None:
-        console_num_for_wai = 2
-        console.write_llm_query_to_console(console_num_for_wai, system_prompt, user_message)
-
+def chat_completion(user_message, messages=[], model="lexi-llama3-q5", temperature=0.0, max_tokens=1024, system_prompt=""):
+    print("\n----------------------------------LLM_QUERY----------------------------------\n")
+    print("System:\n" + system_prompt)
     messages.append({"role": "user", "content": user_message})
+    print("Messages:\n" + str(messages))
 
-    url = "http://localhost:11434/api/generate"
+    url = "http://localhost:11434/api/chat"
     headers = {
         "Content-Type": "application/json"
     }
@@ -34,13 +32,12 @@ def chat_completion(user_message, messages=[], model="lexi-llama3-q5", temperatu
 
     text_response = ""
     if response.status_code == 200:
-        text_response = response.json()["text"]
+        text_response = response.json()["message"]["content"]
         messages.append({"role": "assistant", "content": text_response})
     else:
         text_response = "Error: " + str(response.status_code)
 
-    if console is not None:
-        console.write_to_console(console_num_for_wai, "\nResponse:\n" + text_response)
+    print("Response:\n" + text_response)
 
     return text_response, messages
 
@@ -98,3 +95,6 @@ def chat_completion(user_message, messages=[], model="lexi-llama3-q5", temperatu
 #     text_response = chat_completion.choices[0].message.content
 #     messages.append({"role": "assistant", "content": text_response})
 #     return text_response, messages
+
+if __name__ == "__main__":
+    print(chat_completion("What is the color of the sky?", system_prompt="You are a helpful assistant."))

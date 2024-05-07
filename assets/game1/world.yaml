@@ -202,7 +202,10 @@
           physical_state: "standing"
           psychological_state: "awake, calm"
           backstory: "Sherlock Holmes is a famous detective."
-          current_context: "Sherlock Holmes is looking for clues in the study, the scene of the crime."
+          current_context: |
+            Watson and Holmes entered the Thompson house at around 9 o'clock in the morning. 
+            Sherlock Holmes went to inspect the scene of the crime (the study), while Watson decided to question the maid in the kitchen, as she witnessed the state of the body first-hand.
+            Sherlock Holmes is currently looking for clues in the study, the scene of the crime.
           contents:
             - name: "Sherlock's hat"
               type: "thing"

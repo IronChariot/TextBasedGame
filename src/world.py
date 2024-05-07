@@ -1,9 +1,13 @@
 import yaml
 import os
+import json
+import jsonpickle
 from dicttoxml import dicttoxml
 from src.thing import Thing
 from src.location import Location
 from src.character import Character
+from dicttoxml import dicttoxml
+import re
 
 class World:
     def __init__(self, scenario_folder):
@@ -18,14 +22,10 @@ class World:
         scenario_file_path = os.path.join(os.getcwd(), 'assets', scenario_folder, 'scenario.yaml')
 
         # Load the YAML data
-        self.world_state = self.load_yaml_data(world_file_path)
-        self.scenario_state = yaml.safe_load(scenario_file_path)
+        self.world_state = self.load_world_yaml_data(world_file_path)
+        self.scenario_state = self.load_scenario_yaml_data(scenario_file_path)
 
     def create_object(self, data, parent=None):
-        global items
-        global locations
-        global characters
-
         if isinstance(data, dict):
             obj_type = data.get('type', 'thing')
             if obj_type == 'location':
@@ -34,7 +34,7 @@ class World:
                     description=data.get('description', ''),
                     private_description=data.get('private_description', ''),
                     physical_state=data.get('physical_state', ''),
-                    exits=data.get('exits', []),
+                    exits=data.get('exits', {}),
                     parent=parent,
                     contents={}
                 )
@@ -79,14 +79,17 @@ class World:
         else:
             raise ValueError(f"Invalid data type: {type(data)}")
 
-    def load_yaml_data(self, file_path):
+    def load_world_yaml_data(self, file_path):
         with open(file_path, 'r') as file:
             data = yaml.safe_load(file)
-
         # Assume there is just one root object
         root_object = self.create_object(data[0])
-
         return root_object
+    
+    def load_scenario_yaml_data(self, file_path):
+        with open(file_path, 'r') as file:
+            data = yaml.safe_load(file)
+        return data["player_scenario"]
 
     def get_item_names(self):
         return list(self.items.keys())
@@ -125,5 +128,25 @@ class World:
         self.items[thing_name] = location.contents[thing_name]
     
     def __str__(self):
-        xml_string = dicttoxml(self.world_state, custom_root='world', xml_declaration=False, attr_type=False)
-        return xml_string
+        world_json = jsonpickle.encode(self.world_state)
+        world_json = world_json.replace('"py/object": "src.thing.Thing", ', "")
+        world_json = world_json.replace('"py/object": "src.thing.Location", ', "")
+        world_json = world_json.replace('"py/object": "src.thing.Character", ', "")
+        world_dict = json.loads(world_json)
+        world_xml = dicttoxml(world_dict, custom_root="world", xml_declaration=False, attr_type=False, include_encoding=False, ids=False)
+        
+        world_xml_str = str(world_xml)
+        # Use regex to remove all <parent></parent> blocks (and the content in between them):
+        world_xml_str = re.sub(r'<parent>.*?</parent>', '', world_xml_str, flags=re.DOTALL) # TODO: Check that this doesn't remove too much
+        # Remove the b' at the start of the string
+        world_xml_str = world_xml_str[2:]
+        # Remove the last ' at the end of the string
+        world_xml_str = world_xml_str[:-1]
+        # Replace all &apos; with '
+        world_xml_str = world_xml_str.replace("&apos;", "'")
+
+        return world_xml_str
+    
+if __name__ == "__main__":
+    world = World('game1')
+    print(world)

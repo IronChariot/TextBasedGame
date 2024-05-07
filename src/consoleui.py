@@ -1,12 +1,15 @@
 import tkinter as tk
 import datetime
 import os
-from src.aiconsole import AIConsole
+from src.aiengine import AIEngine
 
 class ConsoleUI:
-    def __init__(self):
+    def __init__(self, aiengine: AIEngine):
+        self.aiengine = aiengine
+
         self.root = tk.Tk()
         self.root.title("Text Based Game")
+        self.root.protocol("WM_DELETE_WINDOW", self.quit)
 
         self.output_height = 60
         self.section_width = 70
@@ -19,16 +22,11 @@ class ConsoleUI:
         self.consoles = []
         self.inputs = []
 
-        for i in range(1, 4):
-            frame, console, input_entry = self.create_console_section(i)
-            frame.pack(side=tk.LEFT, padx=5, pady=5)
-            self.consoles.append(console)
-            self.inputs.append(input_entry)
-
-        self.aiconsole = None
-
-    def set_ai_console(self, console: AIConsole):
-        self.aiconsole = console
+        # for i in range(1, 4):
+        frame, console, input_entry = self.create_console_section(1)
+        frame.pack(side=tk.LEFT, padx=5, pady=5)
+        self.consoles.append(console)
+        self.inputs.append(input_entry)
 
     def create_console_section(self, console_num):
         frame = tk.Frame(self.root)
@@ -70,9 +68,11 @@ class ConsoleUI:
         current_input = self.inputs[console_num-1]
         text = current_input.get()
         current_input.delete(0, tk.END)
-        self.write_to_console(console_num, "\nUser input:\n" + text)
-        if self.aiconsole is not None and console_num == 1:
-            self.aiconsole.process_player_input(text)
+        self.write_to_console(console_num, text)
+        if console_num == 1:
+            answer = self.aiengine.process_player_input(text)
+            print(f"Got the answer: {answer}")
+            self.write_to_console(console_num, answer)
 
     def write_llm_query_to_console(self, console_num, system_prompt, prompt):
         self.clear_console(console_num)
@@ -81,3 +81,6 @@ class ConsoleUI:
 
     def run(self):
         self.root.mainloop()
+
+    def quit(self):
+        self.root.destroy()
