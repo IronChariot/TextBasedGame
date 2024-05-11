@@ -1,7 +1,15 @@
 import tkinter as tk
 import datetime
 import os
+from threading import Thread
+from queue import Queue
+from enum import Enum, auto
 from src.aiengine import AIEngine
+
+class TicketPurpose(Enum):
+    CONSOLE_1_CONTENTS = auto()
+    CONSOLE_2_CONTENTS = auto()
+    CONSOLE_3_CONTENTS = auto()
 
 class ConsoleUI:
     def __init__(self, aiengine: AIEngine):
@@ -39,7 +47,7 @@ class ConsoleUI:
         console.config(yscrollcommand=scrollbar.set)
         input_entry = tk.Entry(frame, width=self.section_width, font=self.console_font, bg=self.console_bg, fg=self.console_fg, insertbackground=self.console_fg)
         input_entry.pack(side=tk.BOTTOM, fill=tk.X)
-        input_entry.bind("<Return>", lambda event: self.get_input(console_num))
+        input_entry.bind("<Return>", lambda event: self.user_input_to_console(console_num))
         return frame, console, input_entry
 
     def write_to_log(self, console_num, text):
@@ -64,15 +72,26 @@ class ConsoleUI:
         current_console.configure(state=tk.DISABLED)
         self.write_to_log(console_num, text)
 
+    def user_input_to_console(self, console_num):
+        thread = Thread(target=self.get_input, args=(console_num,), daemon=True)
+        thread.start()
+
     def get_input(self, console_num):
         current_input = self.inputs[console_num-1]
         text = current_input.get()
         current_input.delete(0, tk.END)
+        # Also disable the input and grey it out
+        current_input.configure(state=tk.DISABLED)
+        current_input.configure(bg="gray")
         self.write_to_console(console_num, text)
         if console_num == 1:
             answer = self.aiengine.process_player_input(text)
-            print(f"Got the answer: {answer}")
+            if answer is None:
+                answer = "ERROR"
             self.write_to_console(console_num, answer)
+            # re-enable the input
+            current_input.configure(state=tk.NORMAL)
+            current_input.configure(bg=self.console_bg)
 
     def write_llm_query_to_console(self, console_num, system_prompt, prompt):
         self.clear_console(console_num)

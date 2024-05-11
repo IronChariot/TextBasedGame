@@ -1,62 +1,70 @@
 # Simple methods for querying LLMs. Uncomment the one you want to use.
 
-import requests
-import json
+from src.logger import Logger
 
-# Function to create a chat completion using ollama
-def chat_completion(user_message, messages=[], model="lexi-llama3-q5", temperature=0.0, max_tokens=1024, system_prompt=""):
-    print("\n----------------------------------LLM_QUERY----------------------------------\n")
-    print("System:\n" + system_prompt)
-    messages.append({"role": "user", "content": user_message})
-    print("Messages:\n" + str(messages))
+# import requests
+# import json
 
-    url = "http://localhost:11434/api/chat"
-    headers = {
-        "Content-Type": "application/json"
-    }
-    data = {
-        "model": model,
-        "messages": messages,
-        "stream": False,
-        "options": {
-            "temperature": temperature,
-            "num_predict": max_tokens
-        }
-    }
-
-    # Add system prompt if provided
-    if system_prompt != "":
-        data["system"] = system_prompt
-    
-    response = requests.post(url, headers=headers, data=json.dumps(data))
-
-    text_response = ""
-    if response.status_code == 200:
-        text_response = response.json()["message"]["content"]
-        messages.append({"role": "assistant", "content": text_response})
-    else:
-        text_response = "Error: " + str(response.status_code)
-
-    print("Response:\n" + text_response)
-
-    return text_response, messages
-
-# import anthropic
-
-# def chat_completion(user_message, messages=[], model='claude-3-opus-20240229', temperature=0.0, max_tokens=1024, system_prompt=""):
+# # Function to create a chat completion using ollama
+# def chat_completion(user_message, messages=[], model="lexi-llama3-q5", temperature=0.0, max_tokens=1024, system_prompt=""):
+#     print("\n----------------------------------LLM_QUERY----------------------------------\n")
+#     print("System:\n" + system_prompt)
 #     messages.append({"role": "user", "content": user_message})
+#     print("Messages:\n" + str(messages))
 
-#     chat_completion = anthropic.Anthropic().messages.create(
-#         system=system_prompt,
-#         model=model,
-#         max_tokens=max_tokens,
-#         temperature=temperature,
-#         messages=messages
-#     )
+#     url = "http://localhost:11434/api/chat"
+#     headers = {
+#         "Content-Type": "application/json"
+#     }
+#     data = {
+#         "model": model,
+#         "messages": messages,
+#         "stream": False,
+#         "options": {
+#             "temperature": temperature,
+#             "num_predict": max_tokens
+#         }
+#     }
 
-#     text_response = chat_completion.content[0].text
-#     messages.append({"role": "assistant", "content": text_response})
+#     # Add system prompt if provided
+#     if system_prompt != "":
+#         data["system"] = system_prompt
+    
+#     response = requests.post(url, headers=headers, data=json.dumps(data))
+
+#     text_response = ""
+#     if response.status_code == 200:
+#         text_response = response.json()["message"]["content"]
+#         messages.append({"role": "assistant", "content": text_response})
+#     else:
+#         text_response = "Error: " + str(response.status_code)
+
+#     print("Response:\n" + text_response)
+
 #     return text_response, messages
+
+import anthropic
+
+def chat_completion(user_message, messages=[], model='claude-3-haiku-20240307', temperature=0.0, max_tokens=1024, system_prompt=""):
+    try:
+        messages.append({"role": "user", "content": user_message})
+        print("\n----------------------------------LLM_QUERY----------------------------------\n")
+        print("Messages:\n" + str(messages))
+        chat_completion = anthropic.Anthropic().messages.create(
+            system=system_prompt,
+            model=model,
+            max_tokens=max_tokens,
+            temperature=temperature,
+            messages=messages
+        )
+
+        text_response = chat_completion.content[0].text
+        print("Response:\n" + text_response)
+        messages.append({"role": "assistant", "content": text_response})
+        return text_response, messages
+    except Exception as e:
+        print("Error: " + str(e))
+        return "Error querying the LLM: " + str(e), messages
 
 # from groq import Groq
 
@@ -64,18 +72,25 @@ def chat_completion(user_message, messages=[], model="lexi-llama3-q5", temperatu
 
 # # Function to create a chat completion using Groq
 # def chat_completion(user_message, messages=[], model='llama3-70b-8192', temperature=0.0, max_tokens=1024, system_prompt=""):
-#     if system_prompt != "" and len(messages) == 0:
-#         messages.append({"role": "system", "content": system_prompt})
-#     messages.append({"role": "user", "content": user_message})
-#     chat_completion = client.chat.completions.create(
-#         messages=messages,
-#         model=model,
-#         temperature=temperature,
-#         max_tokens=max_tokens
-#     )
-#     text_response = chat_completion.choices[0].message.content
-#     messages.append({"role": "assistant", "content": text_response})
-#     return text_response, messages
+#     try:
+#         if system_prompt != "" and len(messages) == 0:
+#             messages.append({"role": "system", "content": system_prompt})
+#         messages.append({"role": "user", "content": user_message})
+#         print("\n----------------------------------LLM_QUERY----------------------------------\n")
+#         print("Messages:\n" + str(messages))
+#         chat_completion = client.chat.completions.create(
+#             messages=messages,
+#             model=model,
+#             temperature=temperature,
+#             max_tokens=max_tokens
+#         )
+#         text_response = chat_completion.choices[0].message.content
+#         print("Response:\n" + text_response)
+#         messages.append({"role": "assistant", "content": text_response})
+#         return text_response, messages
+#     except Exception as e:
+#         print("Error: " + str(e))
+#         return "Error querying the LLM: " + str(e), messages
 
 # from openai import OpenAI
 

@@ -38,12 +38,13 @@ class AIEngine:
         
         prompt = character.current_context + "\n" + instructions
         response, messages = chat_completion(prompt, system_prompt=self.system_prompt)
+        # If the response contains <action_type>...
+        if "<action_type>" in response:
         # Extract the word between <action_type></action_type> tags from the response
-        action_type = response.split("<action_type>")[1].split("</action_type>")[0]
-        if action_type in ["speech", "question", "action"]:
-            return self.process_action(action_type, input, character)
-        else:
-            return "Hmm, not sure what to do with that, sorry."
+            action_type = response.split("<action_type>")[1].split("</action_type>")[0]
+            if action_type in ["speech", "question", "action"]:
+                return self.process_action(action_type, input, character)
+        return "Hmm, not sure what to do with that, sorry."
 
     # Process the action based on the action type
     # Only return text if the player will see it
@@ -107,6 +108,8 @@ class AIEngine:
                 response_text = response.split("<response>")[1].split("</response>")[0]
                 character.add_to_context(response_text)
                 return response_text
+            
+            return "I don't know how to answer that."
 
         elif type == "action":
             instructions = f"""Above is the context of the game so far. The following is a proposed action from the character '{character.name}':
